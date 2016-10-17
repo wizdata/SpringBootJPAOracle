@@ -19,7 +19,7 @@ public class Customer2Repository {
 	
 	public List<Customer> findByFirstName(String firstName) {
 		StoredProcedureQuery query = entityManager
-			    .createStoredProcedureQuery("cris.findByFirstName")
+			    .createStoredProcedureQuery("CRIS_COA_DELEGATOR_PKG.FIND_CUSTOMER_FIRSTNAME_PROC")
 			    .registerStoredProcedureParameter(1, String.class, 
 			         ParameterMode.IN)
 			    .registerStoredProcedureParameter(2, List.class, 

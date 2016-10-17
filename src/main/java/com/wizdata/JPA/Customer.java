@@ -9,14 +9,25 @@ import javax.persistence.Id;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
+import javax.persistence.Column;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Customer {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	
+	@SequenceGenerator(
+	        name="CUSTOMER_SEQUENCE_GENERATOR",
+	        sequenceName="CUSTOMER_SEQ"
+	    )
+	@Id() 
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CUSTOMER_SEQUENCE_GENERATOR")    
+    @Column(name="customer_id")
     private Long id;
+	
+    @Column(name="customer_first_nm")
     private String firstName;
+    
+    @Column(name="customer_last_nm")
     private String lastName;
 
     protected Customer() {}

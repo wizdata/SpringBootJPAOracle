@@ -24,25 +24,28 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace=Replace.NONE)
+@Ignore
 public class CustomerSpRepositoryTests {
     @Autowired
     private TestEntityManager entityManager;
 
-    private Customer2Repository customers;
+    @Autowired
+    private CustomerSpRepository customers;
  
 	@Test
     public void testFindByFirstNameSP() {
         Customer customer = new Customer("first", "last");
-        System.out.println("hello");
-        entityManager.persist(customer);
-        System.out.println("hi");
-        customers = new Customer2Repository();
+        System.out.println(customer.getFirstName());
+        entityManager.persist(customer);     
         List<Customer> findByFirstName = customers.findByFirstName(customer.getFirstName());
 		
 		assertThat(findByFirstName).extracting(Customer::getFirstName).containsOnly(customer.getFirstName());
