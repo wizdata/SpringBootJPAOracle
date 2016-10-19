@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureParameter;
@@ -13,6 +14,16 @@ import javax.persistence.Column;
 import javax.persistence.SequenceGenerator;
 
 @Entity
+@NamedStoredProcedureQueries({
+	@NamedStoredProcedureQuery(
+	    		name = "findByFirstName", 
+	    		procedureName = "CRIS_COA_DELEGATOR_PKG.FIND_CUSTOMER_FIRSTNAME_PROC", 
+	    		resultClasses = List.class, 
+	    		parameters = {
+	    			@StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = void.class), 
+	    			@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class)
+	    		})
+	})
 public class Customer {
 	
 	@SequenceGenerator(
